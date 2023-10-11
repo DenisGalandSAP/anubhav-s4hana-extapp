@@ -1,4 +1,3 @@
----
 _schema-version: '3.1'
 ID: btp-s4-sales-ext
 version: 1.0.0
@@ -17,6 +16,7 @@ modules:
     requires:
       - name: s4hanaso-uaa
       - name: mycapapiext-destination
+      - name: btp-s4-sales-ext-connectivity
     parameters:
       buildpack: nodejs_buildpack
     build-parameters:
@@ -32,7 +32,7 @@ modules:
     requires:
       - name: srv-api
         group: destinations
-        properties: 
+        properties:
           name: srv-api
           strictSSL: true
           forwardAuthToken: true
@@ -49,5 +49,10 @@ resources:
     type: org.cloudfoundry.managed-service
     parameters:
       path: ./xs-security.json
-      service:  xsuaa
+      service: xsuaa
       service-plan: application
+  - name: btp-s4-sales-ext-connectivity
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: connectivity
+      service-plan: lite
